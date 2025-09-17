@@ -38,34 +38,36 @@ export const authOptions: AuthOptions = {
     }),
   ],
 
-  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
+  secret: process.env.NEXTAUTH_SECRET as string, // ✅ only once!
 
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.id = user.id; // store id in JWT
+      if (user) token.id = user.id; // attach id to JWT
       return token;
     },
-  
+
     async session({ session, token }) {
       if (session.user && token.id) {
-        session.user.id = token.id; // TS now recognizes id
+       session.user.id = token.id;
       }
       return session;
     },
-  
-    async signIn({ user, account, profile, email, credentials }) {
+
+    async signIn({ user }) {
       if (user.email && user.email.endsWith("@example.com")) {
         return true;
       }
       return false;
     },
   },
-  pages : {
-    signIn : "/login",
-    error : "/login"
-  },
-  session : {
-    strategy : 
-  }
-  
-}
+};
