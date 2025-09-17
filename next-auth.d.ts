@@ -4,17 +4,17 @@ import { JWT } from "next-auth/jwt";
 declare module "next-auth" {
   interface Session {
     user?: DefaultSession["user"] & {
-      id: string;
+      id: string; // <-- tell TS user has an id
     };
   }
 
   interface User extends DefaultUser {
-    id: string;
+    id: string; // returned from authorize()
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id?: string;
+    id?: string; // store user id in JWT
   }
 }

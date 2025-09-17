@@ -3,7 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "@/modals/User.modals";
 import { connectToDatabase } from "./dt";
-import nextAuth from "next-auth";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -60,6 +59,13 @@ export const authOptions: AuthOptions = {
       }
       return false;
     },
+  },
+  pages : {
+    signIn : "/login",
+    error : "/login"
+  },
+  session : {
+    strategy : 
   }
   
 }
