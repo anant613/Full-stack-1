@@ -1,4 +1,5 @@
-import { getUploadAuthParams } from "@imagekit/next/server"
+import { getUploadAuthParams } from "@imagekit/next/server";
+import { NextResponse , NextRequest } from "next/server";
 
 export async function GET() {
   try {
